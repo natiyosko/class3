@@ -51,6 +51,15 @@
     this._shadowRoot.appendChild(template.content.cloneNode(true));
     this.$newadd = this._shadowRoot.querySelector('.newadd')
     this.$second = this._shadowRoot.querySelector('.second')
+
+    this.$second.addEventListener('click', () =>{
+        console.log('second click inside my second')
+        this.dispatchEvent(
+            new CustomEvent('nukesmolanim',{
+                detail:'mooo',
+            })
+        )
+    })
     this.attrs = {}
   }
   static get observedAttributes(){return ['first' , 'second']}
@@ -69,8 +78,17 @@
 }
 window.customElements.define('my-natiyosko', box);
     </script>
-    <my-natiyosko first="blue" second="red"></my-natiyosko>
-    <my-natiyosko  first="pink" second="red"></my-natiyosko>
+    <my-natiyosko id="a" first="blue" second="red"></my-natiyosko>
+    <my-natiyosko id="b" first="pink" second="red"></my-natiyosko>
     <my-natiyosko  first="gray" second="red"></my-natiyosko>
+    <script>
+
+     let a = document.getElementById('a')
+     let b = document.getElementById('b')
+
+     a.addEventListener('nukesmolanim', value => alert('im a'+ value.detail,value) );
+     b.addEventListener('nukesmolanim', value =>  alert('im b'+ value.detail));
+    </script>
+   
 </body>
 </html>
