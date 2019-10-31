@@ -31,11 +31,11 @@
      }
 </style>
 <body>
-    <section>
+    <section class="newadd">
         <header>
             <h1> This is the header</h1>
         </header>
-        <button>
+        <button class ="second">
             click 
         </button>
         <footer>
@@ -49,12 +49,28 @@
     super();
     this._shadowRoot = this.attachShadow({ mode: 'open' });
     this._shadowRoot.appendChild(template.content.cloneNode(true));
+    this.$newadd = this._shadowRoot.querySelector('.newadd')
+    this.$second = this._shadowRoot.querySelector('.second')
+    this.attrs = {}
   }
+  static get observedAttributes(){return ['first' , 'second']}
+  attributeChangedCallback(name,oldval,newval){
+      console.log(`att ${name} chang from ${oldval} to ${newval}`)
+      this.attrs[name] = newval;
+      this.render();
+  }
+  render(){
+      let first = this.attrs.first;
+      this.$newadd.style.background = first;
+      let second = this.attrs.second;
+      this.$second.style.background = second;
+  }
+   
 }
 window.customElements.define('my-natiyosko', box);
     </script>
-    <my-natiyosko></my-natiyosko>
-    <my-natiyosko></my-natiyosko>
-    <my-natiyosko></my-natiyosko>
+    <my-natiyosko first="blue" second="red"></my-natiyosko>
+    <my-natiyosko  first="pink" second="red"></my-natiyosko>
+    <my-natiyosko  first="gray" second="red"></my-natiyosko>
 </body>
 </html>
